@@ -4,7 +4,7 @@ def input_error_1(func):
         try:
             return func(*args, **kwargs)
         except KeyError:
-            return "The entered data is incorrect."
+            return "Contact not found."
         except ValueError:
             return "Enter the argument for the command."
         except IndexError:
@@ -29,17 +29,14 @@ def add_contact(args, contacts):
 @input_error_1
 def change_contact(args, contacts):
     name, phone = args
-    if name not in contacts:
-        return "Contact does not exist!\nUse command 'add [name] [phone]' to add a new contact."
-    else:
+    if contacts[name] in contacts:
         contacts[name] = phone
         return "Contact changed."
+    else:
+        return "Contact not found."
 
 @input_error_1
 def show_phone(args, contacts):
-    if args[0] not in contacts:
-        return "Contact does not exist!\nUse command 'add [name] [phone]' to add a new contact."
-    else:
         return contacts[args[0]]
 
 @input_error_1
